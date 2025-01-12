@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "361313252323",
+    "project_id": "event-c5221",
+    "storage_bucket": "event-c5221.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361313252323:android:fe16c1f400e3c187a966d6",
+        "android_client_info": {
+          "package_name": "com.example.event"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaxBGaytK429cn9X98lD9wwRDu-w7TDhM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361313252323:android:2eeac0f8e4d29c55a966d6",
+        "android_client_info": {
+          "package_name": "com.example.eventhub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaxBGaytK429cn9X98lD9wwRDu-w7TDhM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
