@@ -105,6 +105,8 @@ class ForgotPasswordPage extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();
   final AuthService authService = AuthService();
 
+  ForgotPasswordPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,12 +116,12 @@ class ForgotPasswordPage extends StatelessWidget {
         child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.all(24),
+              padding: const EdgeInsets.all(24),
               child: Column(
                 children: [
-                  SizedBox(height: 60),
+                  const SizedBox(height: 60),
                   _buildIcon(),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   _buildResetCard(),
                 ],
               ),
@@ -132,7 +134,7 @@ class ForgotPasswordPage extends StatelessWidget {
 
   Widget _buildIcon() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.secondaryWhite.withOpacity(0.1),
         shape: BoxShape.circle,
@@ -145,7 +147,7 @@ class ForgotPasswordPage extends StatelessWidget {
           ),
         ],
       ),
-      child: Icon(
+      child: const Icon(
         Icons.lock_reset,
         size: 80,
         color: AppColors.secondaryWhite,
@@ -156,21 +158,21 @@ class ForgotPasswordPage extends StatelessWidget {
   Widget _buildResetCard() {
     return Container(
       decoration: AppDecorations.cardDecoration,
-      padding: EdgeInsets.all(24),
+      padding: const EdgeInsets.all(24),
       child: Column(
         children: [
-          Text('Forgot Password?', style: AppTextStyles.heading1),
-          SizedBox(height: 10),
-          Text(
+          const Text('Forgot Password?', style: AppTextStyles.heading1),
+          const SizedBox(height: 10),
+          const Text(
             'Enter your email to reset your password',
             style: AppTextStyles.body1,
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           _buildEmailField(),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           _buildResetButton(),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _buildBackButton(),
         ],
       ),
@@ -185,8 +187,8 @@ class ForgotPasswordPage extends StatelessWidget {
       ),
       child: TextField(
         controller: emailController,
-        style: TextStyle(color: AppColors.textDarkBlue),
-        decoration: InputDecoration(
+        style: const TextStyle(color: AppColors.textDarkBlue),
+        decoration: const InputDecoration(
           hintText: 'Email',
           hintStyle: TextStyle(color: AppColors.textGrey),
           prefixIcon:
@@ -215,8 +217,9 @@ class ForgotPasswordPage extends StatelessWidget {
               ),
             ),
             child: authService.isLoading.value
-                ? CircularProgressIndicator(color: AppColors.secondaryWhite)
-                : Text('Reset Password', style: AppTextStyles.buttonText),
+                ? const CircularProgressIndicator(
+                    color: AppColors.secondaryWhite)
+                : const Text('Reset Password', style: AppTextStyles.buttonText),
           ),
         ));
   }
@@ -224,7 +227,7 @@ class ForgotPasswordPage extends StatelessWidget {
   Widget _buildBackButton() {
     return TextButton(
       onPressed: () => Get.back(),
-      child: Text(
+      child: const Text(
         'Back to Login',
         style: TextStyle(
           color: AppColors.primaryDeepPurple,

@@ -1,6 +1,7 @@
 import 'package:eventhub/controller/AuthServices.dart';
 import 'package:eventhub/utils/Theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 class SignupPage extends StatelessWidget {
@@ -10,7 +11,9 @@ class SignupPage extends StatelessWidget {
   final TextEditingController confirmPasswordController =
       TextEditingController();
   final isLoading = false.obs;
-  final AuthService authService = AuthService(); // Use AuthService
+  final AuthService authService = AuthService();
+
+  SignupPage({super.key}); // Use AuthService
 
   @override
 //   Widget build(BuildContext context) {
@@ -162,12 +165,12 @@ class SignupPage extends StatelessWidget {
         //  decoration: BoxDecoration(gradient: AppColors.primaryGradient),
         child: SafeArea(
           child: SingleChildScrollView(
-            padding: EdgeInsets.all(24),
+            padding: const EdgeInsets.all(24),
             child: Column(
               children: [
                 // SizedBox(height: 20),
                 _buildHeader(),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 _buildSignUpCard(),
               ],
             ),
@@ -179,7 +182,7 @@ class SignupPage extends StatelessWidget {
 
   Widget _buildHeader() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.secondaryWhite.withOpacity(0.1),
         shape: BoxShape.circle,
@@ -192,7 +195,7 @@ class SignupPage extends StatelessWidget {
           ),
         ],
       ),
-      child: Icon(
+      child: const Icon(
         Icons.person_add_outlined,
         size: 80,
         color: AppColors.secondaryWhite,
@@ -203,41 +206,41 @@ class SignupPage extends StatelessWidget {
   Widget _buildSignUpCard() {
     return Container(
       decoration: AppDecorations.cardDecoration,
-      padding: EdgeInsets.all(24),
+      padding: const EdgeInsets.all(24),
       child: Column(
         children: [
-          Text('Create Account', style: AppTextStyles.heading1),
-          SizedBox(height: 10),
-          Text('Sign up to get started', style: AppTextStyles.body1),
-          SizedBox(height: 30),
+          const Text('Create Account', style: AppTextStyles.heading1),
+          const SizedBox(height: 10),
+          const Text('Sign up to get started', style: AppTextStyles.body1),
+          const SizedBox(height: 30),
           _buildTextField(
             controller: nameController,
             hint: 'Name',
             icon: Icons.person_outline,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _buildTextField(
             controller: emailController,
             hint: 'Email',
             icon: Icons.email_outlined,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _buildTextField(
             controller: passwordController,
             hint: 'Password',
             icon: Icons.lock_outline,
             isPassword: true,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _buildTextField(
             controller: confirmPasswordController,
             hint: 'Confirm Password',
             icon: Icons.lock_outline,
             isPassword: true,
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           _buildSignUpButton(),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _buildLoginLink(),
         ],
       ),
@@ -258,13 +261,14 @@ class SignupPage extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: isPassword,
-        style: TextStyle(color: AppColors.textDarkBlue),
+        style: const TextStyle(color: AppColors.textDarkBlue),
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(color: AppColors.textGrey),
+          hintStyle: const TextStyle(color: AppColors.textGrey),
           prefixIcon: Icon(icon, color: AppColors.primaryDeepPurple),
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         ),
       ),
     );
@@ -285,8 +289,13 @@ class SignupPage extends StatelessWidget {
               ),
             ),
             child: authService.isLoading.value
-                ? CircularProgressIndicator(color: AppColors.secondaryWhite)
-                : Text('Sign Up', style: AppTextStyles.buttonText),
+                ? const SpinKitSpinningLines(
+                    color: AppColors
+                        .primaryDeepPurple, // Primary color for the spinner
+                    size: 50.0, // Size of the spinner
+                    lineWidth: 3.0, // Thickness of the lines
+                  )
+                : const Text('Sign Up', style: AppTextStyles.buttonText),
           ),
         ));
   }
@@ -295,10 +304,10 @@ class SignupPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('Already have an account?', style: AppTextStyles.body1),
+        const Text('Already have an account?', style: AppTextStyles.body1),
         TextButton(
           onPressed: () => Get.back(),
-          child: Text(
+          child: const Text(
             'Login',
             style: TextStyle(
               color: AppColors.primaryDeepPurple,

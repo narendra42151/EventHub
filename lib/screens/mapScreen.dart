@@ -10,12 +10,15 @@ import 'package:eventhub/widgets/event_detail_screen.dart';
 import 'package:eventhub/widgets/event_marker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 
 class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
+
   @override
   _MapScreenState createState() => _MapScreenState();
 }
@@ -64,24 +67,6 @@ class _MapScreenState extends State<MapScreen> {
     super.dispose();
   }
 
-  // Fetch events and update markers
-  Future<void> _loadEvents() async {
-    try {
-      print('Loading events...');
-      final events = await _firebaseService.getEvents();
-      print('Fetched ${events.length} events from Firestore.');
-      setState(() {
-        _events = events;
-        _updateMarkers();
-      });
-    } catch (e) {
-      print('Error loading events: $e');
-      setState(() {
-        _error = e.toString();
-      });
-    }
-  }
-
   // Build marker list from events + current location
   void _updateMarkers() {
     setState(() {
@@ -92,7 +77,7 @@ class _MapScreenState extends State<MapScreen> {
             width: 40,
             height: 40,
             // If using flutter_map >=5.0.0, replace 'child' with 'builder'
-            child: Icon(
+            child: const Icon(
               Icons.my_location,
               color: Colors.blue,
               size: 40,
@@ -227,7 +212,7 @@ class _MapScreenState extends State<MapScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Events Map',
           style: TextStyle(
             color: AppColors.secondaryWhite,
@@ -243,15 +228,27 @@ class _MapScreenState extends State<MapScreen> {
             mapController: _mapController,
             options: MapOptions(
               initialCenter: _currentLocation ??
-                  LatLng(37.42796133580664, -122.085749655962),
+                  const LatLng(37.42796133580664, -122.085749655962),
               initialZoom: 13,
             ),
             children: [
               TileLayer(
                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                userAgentPackageName: 'com.example.app',
+                userAgentPackageName: 'com.eventhub.app',
+                tileSize: 256,
               ),
               MarkerLayer(markers: _markers),
+              // Attribution widget
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    '© OpenStreetMap contributors',
+                    style: TextStyle(fontSize: 10, color: Colors.black87),
+                  ),
+                ),
+              ),
             ],
           ),
 
@@ -268,7 +265,7 @@ class _MapScreenState extends State<MapScreen> {
                   BoxShadow(
                     color: AppColors.primaryDeepPurple.withOpacity(0.2),
                     blurRadius: 10,
-                    offset: Offset(0, 5),
+                    offset: const Offset(0, 5),
                   ),
                 ],
               ),
@@ -290,7 +287,7 @@ class _MapScreenState extends State<MapScreen> {
                   BoxShadow(
                     color: AppColors.primaryDeepPurple.withOpacity(0.3),
                     blurRadius: 8,
-                    offset: Offset(0, 4),
+                    offset: const Offset(0, 4),
                   ),
                 ],
               ),
@@ -298,7 +295,7 @@ class _MapScreenState extends State<MapScreen> {
                 onPressed: _getCurrentLocation,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                child: Icon(
+                child: const Icon(
                   Icons.my_location,
                   color: AppColors.secondaryWhite,
                 ),
@@ -309,18 +306,19 @@ class _MapScreenState extends State<MapScreen> {
           // Loading Indicator
           if (_isLoading)
             Container(
-              color: Colors.black26,
+              color: Colors.black26, // Semi-transparent overlay
               child: Center(
                 child: Container(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: AppColors.secondaryWhite,
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      AppColors.primaryDeepPurple,
-                    ),
+                  child: const SpinKitSpinningLines(
+                    color: AppColors
+                        .primaryDeepPurple, // Primary color for the spinner
+                    size: 50.0, // Size of the spinner
+                    lineWidth: 3.0, // Thickness of the lines
                   ),
                 ),
               ),
@@ -333,7 +331,8 @@ class _MapScreenState extends State<MapScreen> {
               left: 16,
               right: 16,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
                   color: Colors.red.shade50,
                   borderRadius: BorderRadius.circular(12),
@@ -341,8 +340,8 @@ class _MapScreenState extends State<MapScreen> {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.error_outline, color: Colors.red),
-                    SizedBox(width: 8),
+                    const Icon(Icons.error_outline, color: Colors.red),
+                    const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         _error!,

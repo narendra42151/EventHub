@@ -232,6 +232,8 @@ class CreateEventScreen extends GetView<EventController> {
   final eventController = Get.put(EventController());
   final imageController = Get.put(ImageController());
 
+  CreateEventScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -239,7 +241,7 @@ class CreateEventScreen extends GetView<EventController> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Create Event',
           style: TextStyle(
             color: Colors.white,
@@ -248,13 +250,13 @@ class CreateEventScreen extends GetView<EventController> {
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(gradient: AppColors.primaryGradient),
+        decoration: const BoxDecoration(gradient: AppColors.primaryGradient),
         child: Obx(() => Stack(
               children: [
                 Form(
                   key: controller.formKey,
                   child: SingleChildScrollView(
-                    padding: EdgeInsets.fromLTRB(12, 100, 12, 12),
+                    padding: const EdgeInsets.fromLTRB(12, 100, 12, 12),
                     child: GlassCard(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -276,8 +278,8 @@ class CreateEventScreen extends GetView<EventController> {
                                       .withOpacity(0.2)),
                             ),
                             child: TextFormField(
-                              style: TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
+                              style: const TextStyle(color: Colors.white),
+                              decoration: const InputDecoration(
                                 hintText: 'Event tittle',
                                 hintStyle: TextStyle(color: Colors.white60),
                                 prefixIcon: Icon(Icons.event,
@@ -291,7 +293,7 @@ class CreateEventScreen extends GetView<EventController> {
                                   controller.title.value = value,
                             ),
                           ),
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           Container(
                             decoration: BoxDecoration(
                               color: EventsAppTheme.cardColor.withOpacity(0.3),
@@ -301,8 +303,8 @@ class CreateEventScreen extends GetView<EventController> {
                                       .withOpacity(0.2)),
                             ),
                             child: TextFormField(
-                              style: TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
+                              style: const TextStyle(color: Colors.white),
+                              decoration: const InputDecoration(
                                 hintText: 'Description',
                                 hintStyle: TextStyle(color: Colors.white60),
                                 prefixIcon: Icon(Icons.description,
@@ -317,7 +319,7 @@ class CreateEventScreen extends GetView<EventController> {
                             ),
                           ),
 
-                          SizedBox(height: 16),
+                          const SizedBox(height: 16),
                           Container(
                             decoration: BoxDecoration(
                               color: EventsAppTheme.cardColor.withOpacity(0.3),
@@ -326,11 +328,11 @@ class CreateEventScreen extends GetView<EventController> {
                                   color: EventsAppTheme.accentColor
                                       .withOpacity(0.2)),
                             ),
-                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: DropdownButtonFormField<String>(
                               dropdownColor: EventsAppTheme.cardColor,
-                              style: TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
+                              style: const TextStyle(color: Colors.white),
+                              decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 icon: Icon(Icons.category,
                                     color: EventsAppTheme.accentColor),
@@ -345,7 +347,7 @@ class CreateEventScreen extends GetView<EventController> {
                                   controller.eventType.value = value!,
                             ),
                           ),
-                          SizedBox(height: 24),
+                          const SizedBox(height: 24),
                           Row(
                             children: [
                               Expanded(
@@ -356,13 +358,14 @@ class CreateEventScreen extends GetView<EventController> {
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime.now(),
                                       lastDate: DateTime.now()
-                                          .add(Duration(days: 365)),
+                                          .add(const Duration(days: 365)),
                                     );
-                                    if (date != null)
+                                    if (date != null) {
                                       controller.startDate.value = date;
+                                    }
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.all(12),
+                                    padding: const EdgeInsets.all(12),
                                     decoration: BoxDecoration(
                                       color: EventsAppTheme.cardColor
                                           .withOpacity(0.3),
@@ -373,22 +376,23 @@ class CreateEventScreen extends GetView<EventController> {
                                     ),
                                     child: Row(
                                       children: [
-                                        Icon(Icons.calendar_today,
+                                        const Icon(Icons.calendar_today,
                                             color: EventsAppTheme.accentColor),
-                                        SizedBox(width: 8),
+                                        const SizedBox(width: 8),
                                         Text(
                                           controller.startDate.value
                                                   ?.toString()
                                                   .split(' ')[0] ??
                                               'Start Date',
-                                          style: TextStyle(color: Colors.white),
+                                          style: const TextStyle(
+                                              color: Colors.white),
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
                               ),
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Expanded(
                                 child: GestureDetector(
                                   onTap: () async {
@@ -397,13 +401,14 @@ class CreateEventScreen extends GetView<EventController> {
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime.now(),
                                       lastDate: DateTime.now()
-                                          .add(Duration(days: 365)),
+                                          .add(const Duration(days: 365)),
                                     );
-                                    if (date != null)
+                                    if (date != null) {
                                       controller.endDate.value = date;
+                                    }
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.all(12),
+                                    padding: const EdgeInsets.all(12),
                                     decoration: BoxDecoration(
                                       color: EventsAppTheme.cardColor
                                           .withOpacity(0.3),
@@ -414,15 +419,16 @@ class CreateEventScreen extends GetView<EventController> {
                                     ),
                                     child: Row(
                                       children: [
-                                        Icon(Icons.calendar_today,
+                                        const Icon(Icons.calendar_today,
                                             color: EventsAppTheme.accentColor),
-                                        SizedBox(width: 5),
+                                        const SizedBox(width: 5),
                                         Text(
                                           controller.endDate.value
                                                   ?.toString()
                                                   .split(' ')[0] ??
                                               'End Date',
-                                          style: TextStyle(color: Colors.white),
+                                          style: const TextStyle(
+                                              color: Colors.white),
                                         ),
                                       ],
                                     ),
@@ -431,11 +437,11 @@ class CreateEventScreen extends GetView<EventController> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 24),
+                          const SizedBox(height: 24),
                           GestureDetector(
                             onTap: () => Get.to(() => LocationPickerScreen()),
                             child: Container(
-                              padding: EdgeInsets.all(16),
+                              padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 color:
                                     EventsAppTheme.cardColor.withOpacity(0.3),
@@ -446,22 +452,23 @@ class CreateEventScreen extends GetView<EventController> {
                               ),
                               child: Row(
                                 children: [
-                                  Icon(Icons.location_on,
+                                  const Icon(Icons.location_on,
                                       color: EventsAppTheme.accentColor),
-                                  SizedBox(width: 8),
+                                  const SizedBox(width: 8),
                                   Expanded(
                                     child: Text(
                                       controller.address.value.isEmpty
                                           ? 'Select Location'
                                           : controller.address.value,
-                                      style: TextStyle(color: Colors.white),
+                                      style:
+                                          const TextStyle(color: Colors.white),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                          SizedBox(height: 24),
+                          const SizedBox(height: 24),
                           GradientButton(
                             text: 'Add Images',
                             onPressed: imageController.pickImages,
@@ -469,14 +476,14 @@ class CreateEventScreen extends GetView<EventController> {
                           if (imageController.selectedImages.isNotEmpty)
                             Container(
                               height: 100,
-                              margin: EdgeInsets.symmetric(vertical: 16),
+                              margin: const EdgeInsets.symmetric(vertical: 16),
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount:
                                     imageController.selectedImages.length,
                                 itemBuilder: (context, index) {
                                   return Container(
-                                    margin: EdgeInsets.only(right: 8),
+                                    margin: const EdgeInsets.only(right: 8),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
@@ -498,7 +505,7 @@ class CreateEventScreen extends GetView<EventController> {
                                 },
                               ),
                             ),
-                          SizedBox(height: 24),
+                          const SizedBox(height: 24),
                           GradientButton(
                             text: 'Create Event',
                             isLoading: controller.isLoading.value,
@@ -572,8 +579,8 @@ class StyledTextField extends StatelessWidget {
     required this.icon,
     this.isPassword = false,
     this.onChanged,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -585,15 +592,16 @@ class StyledTextField extends StatelessWidget {
       ),
       child: TextField(
         controller: controller,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
         obscureText: isPassword,
         onChanged: onChanged,
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(color: Colors.white60),
+          hintStyle: const TextStyle(color: Colors.white60),
           prefixIcon: Icon(icon, color: EventsAppTheme.accentColor),
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         ),
       ),
     );

@@ -35,8 +35,8 @@ class GlassCard extends StatelessWidget {
   const GlassCard({
     required this.child,
     this.padding = const EdgeInsets.all(30),
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +78,8 @@ class StyledTextField extends StatelessWidget {
     required this.hint,
     required this.icon,
     this.isPassword = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -91,14 +91,15 @@ class StyledTextField extends StatelessWidget {
       ),
       child: TextField(
         controller: controller,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
         obscureText: isPassword,
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(color: Colors.white60),
+          hintStyle: const TextStyle(color: Colors.white60),
           prefixIcon: Icon(icon, color: EventsAppTheme.accentColor),
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         ),
       ),
     );
@@ -115,8 +116,8 @@ class GradientButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.isLoading = false,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -130,7 +131,7 @@ class GradientButton extends StatelessWidget {
           BoxShadow(
             color: EventsAppTheme.primaryColor.withOpacity(0.3),
             blurRadius: 10,
-            offset: Offset(0, 5),
+            offset: const Offset(0, 5),
           ),
         ],
       ),
@@ -147,7 +148,7 @@ class GradientButton extends StatelessWidget {
             ? const CircularProgressIndicator(color: Colors.white)
             : Text(
                 text,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,

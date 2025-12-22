@@ -61,6 +61,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EventsScreen extends GetView<EventsController> {
+  const EventsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,7 +112,7 @@ class EventsScreen extends GetView<EventsController> {
             ),
           ),
           child: PopupMenuButton<String>(
-            icon: Icon(
+            icon: const Icon(
               Icons.filter_list,
               color: AppColors.secondaryWhite,
             ),
@@ -150,7 +152,7 @@ class EventsScreen extends GetView<EventsController> {
           BoxShadow(
             color: AppColors.primaryDeepPurple.withOpacity(0.1),
             blurRadius: 8,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -164,7 +166,7 @@ class EventsScreen extends GetView<EventsController> {
           hintStyle: AppTextStyles.body1.copyWith(
             color: AppColors.textGrey,
           ),
-          prefixIcon: Icon(
+          prefixIcon: const Icon(
             Icons.search,
             color: AppColors.primarySoftBlue,
           ),
@@ -174,7 +176,7 @@ class EventsScreen extends GetView<EventsController> {
           ),
           filled: true,
           fillColor: AppColors.secondaryWhite,
-          contentPadding: EdgeInsets.symmetric(
+          contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 12,
           ),
@@ -186,7 +188,7 @@ class EventsScreen extends GetView<EventsController> {
   Widget _buildFilterChips() {
     return Container(
       height: 40,
-      margin: EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Obx(
         () => ListView(
           scrollDirection: Axis.horizontal,
@@ -204,7 +206,7 @@ class EventsScreen extends GetView<EventsController> {
   Widget _buildFilterChip(String label, String value) {
     final isSelected = controller.selectedType.value == value;
     return Container(
-      margin: EdgeInsets.only(right: 8),
+      margin: const EdgeInsets.only(right: 8),
       child: FilterChip(
         selected: isSelected,
         label: Text(
@@ -238,12 +240,12 @@ class EventsScreen extends GetView<EventsController> {
         () => controller.filteredEvents.isEmpty
             ? _buildEmptyState()
             : ListView.builder(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 itemCount: controller.filteredEvents.length,
                 itemBuilder: (context, index) {
                   final event = controller.filteredEvents[index];
                   return Padding(
-                    padding: EdgeInsets.only(bottom: 16),
+                    padding: const EdgeInsets.only(bottom: 16),
                     child: EventCard(event: event),
                   );
                 },
@@ -262,7 +264,7 @@ class EventsScreen extends GetView<EventsController> {
             size: 64,
             color: AppColors.textGrey.withOpacity(0.5),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Text(
             'No events found',
             style: AppTextStyles.heading1.copyWith(
@@ -270,7 +272,7 @@ class EventsScreen extends GetView<EventsController> {
               fontSize: 20,
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             'Try adjusting your filters',
             style: AppTextStyles.body1.copyWith(

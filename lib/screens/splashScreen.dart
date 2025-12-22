@@ -94,11 +94,12 @@ import 'package:eventhub/screens/HomeScreen.dart';
 import 'package:eventhub/screens/loginScreen.dart';
 import 'package:eventhub/utils/Theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -120,7 +121,7 @@ class _SplashScreenState extends State<SplashScreen>
   void _setupAnimations() {
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     );
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
     _controller.forward();
@@ -136,7 +137,7 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(gradient: AppColors.primaryGradient),
+        decoration: const BoxDecoration(gradient: AppColors.primaryGradient),
         child: Center(
           child: FadeTransition(
             opacity: _fadeAnimation,
@@ -144,7 +145,7 @@ class _SplashScreenState extends State<SplashScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: AppColors.secondaryWhite.withOpacity(0.1),
@@ -160,13 +161,13 @@ class _SplashScreenState extends State<SplashScreen>
                       ),
                     ],
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.event,
                     size: 80,
                     color: AppColors.secondaryWhite,
                   ),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Text(
                   'EventHub',
                   style: TextStyle(
@@ -178,20 +179,20 @@ class _SplashScreenState extends State<SplashScreen>
                       Shadow(
                         color: AppColors.primaryDeepPurple.withOpacity(0.5),
                         blurRadius: 10,
-                        offset: Offset(0, 5),
+                        offset: const Offset(0, 5),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
-                Container(
+                const SizedBox(height: 20),
+                SizedBox(
                   width: 40,
-                  height: 40,
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(
-                      AppColors.secondaryWhite,
-                    ),
-                    strokeWidth: 3,
+                  height: 60,
+                  child: const SpinKitSpinningLines(
+                    color: AppColors
+                        .secondaryLightBlue, // Primary color for the spinner
+                    size: 50.0, // Size of the spinner
+                    lineWidth: 3.0, // Thickness of the lines
                   ),
                 ),
               ],
@@ -206,7 +207,7 @@ class _SplashScreenState extends State<SplashScreen>
     final prefs = await SharedPreferences.getInstance();
     final userState = prefs.getString('userState');
 
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
 
     if (userState == 'logged_in') {
       Get.offAll(() => HomeScreen());

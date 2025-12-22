@@ -140,6 +140,8 @@ import 'package:eventhub/utils/drawer.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -166,13 +168,13 @@ class _HomeScreenState extends State<HomeScreen> {
               color: AppColors.primaryDeepPurple.withOpacity(0.1),
               blurRadius: 20,
               spreadRadius: 0,
-              offset: Offset(0, -5),
+              offset: const Offset(0, -5),
             ),
           ],
         ),
         child: SafeArea(
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -193,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return InkWell(
       onTap: () => setState(() => _currentIndex = index),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected
               ? AppColors.primaryDeepPurple.withOpacity(0.1)
@@ -209,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   isSelected ? AppColors.primaryDeepPurple : AppColors.textGrey,
               size: 24,
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Text(
               label,
               style: AppTextStyles.body1.copyWith(
@@ -243,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        child: Icon(
+        child: const Icon(
           Icons.add_rounded,
           color: AppColors.secondaryWhite,
           size: 32,

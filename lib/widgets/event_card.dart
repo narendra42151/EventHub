@@ -81,7 +81,7 @@ import 'package:flutter/material.dart';
 class EventCard extends StatelessWidget {
   final EventModel event;
 
-  const EventCard({required this.event});
+  const EventCard({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +92,7 @@ class EventCard extends StatelessWidget {
           BoxShadow(
             color: AppColors.primaryDeepPurple.withOpacity(0.08),
             blurRadius: 12,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -117,7 +117,8 @@ class EventCard extends StatelessWidget {
             children: [
               if (event.imageUrls.isNotEmpty)
                 ClipRRect(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(16)),
                   child: Stack(
                     children: [
                       Image.network(
@@ -135,7 +136,7 @@ class EventCard extends StatelessWidget {
                   ),
                 ),
               Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -146,14 +147,14 @@ class EventCard extends StatelessWidget {
                         color: AppColors.textDarkBlue,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                       event.description,
                       style: AppTextStyles.body1,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     Row(
                       children: [
                         Icon(
@@ -161,7 +162,7 @@ class EventCard extends StatelessWidget {
                           size: 16,
                           color: _getEventColor(event.eventType),
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         Text(
                           event.eventType,
                           style: AppTextStyles.body1.copyWith(
@@ -183,7 +184,7 @@ class EventCard extends StatelessWidget {
 
   Widget _buildEventTypeChip(String type) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
         color: _getEventColor(type).withOpacity(0.9),
         borderRadius: BorderRadius.circular(20),
@@ -196,7 +197,7 @@ class EventCard extends StatelessWidget {
             size: 16,
             color: AppColors.secondaryWhite,
           ),
-          SizedBox(width: 4),
+          const SizedBox(width: 4),
           Text(
             type,
             style: AppTextStyles.body1.copyWith(
@@ -215,7 +216,7 @@ class EventCard extends StatelessWidget {
       case 'Promotion':
         return AppColors.primarySoftBlue;
       case 'Discount':
-        return Color(0xFF4CAF50); // Custom green that matches theme
+        return const Color(0xFF4CAF50); // Custom green that matches theme
       default:
         return AppColors.accentOrange;
     }

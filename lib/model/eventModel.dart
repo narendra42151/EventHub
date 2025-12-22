@@ -26,7 +26,7 @@ class EventModel {
     required this.imageUrls,
     required this.creatorId,
     DateTime? createdAt,
-  }) : this.createdAt = createdAt ?? DateTime.now();
+  }) : createdAt = createdAt ?? DateTime.now();
 
   factory EventModel.fromMap(Map<String, dynamic> map) {
     return EventModel(

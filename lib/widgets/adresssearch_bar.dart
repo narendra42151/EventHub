@@ -4,8 +4,7 @@ import 'package:geocoding/geocoding.dart';
 class AddressSearchBar extends StatefulWidget {
   final Function(Location) onLocationSelected;
 
-  const AddressSearchBar({Key? key, required this.onLocationSelected})
-      : super(key: key);
+  const AddressSearchBar({super.key, required this.onLocationSelected});
 
   @override
   _AddressSearchBarState createState() => _AddressSearchBarState();
@@ -48,5 +47,3 @@ class _AddressSearchBarState extends State<AddressSearchBar> {
     );
   }
 }
-
-

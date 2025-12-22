@@ -131,13 +131,16 @@
 import 'package:eventhub/controller/AuthServices.dart';
 import 'package:eventhub/utils/Theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final isLoading = false.obs;
-  final AuthService authService = AuthService(); // Use AuthService
+  final AuthService authService = AuthService();
+
+  LoginPage({super.key}); // Use AuthService
 
   @override
   @override
@@ -148,12 +151,12 @@ class LoginPage extends StatelessWidget {
         //    decoration: BoxDecoration(gradient: AppColors.primaryGradient),
         child: SafeArea(
           child: SingleChildScrollView(
-            padding: EdgeInsets.all(24),
+            padding: const EdgeInsets.all(24),
             child: Column(
               children: [
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 _buildLogo(),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 _buildLoginCard(),
               ],
             ),
@@ -165,7 +168,7 @@ class LoginPage extends StatelessWidget {
 
   Widget _buildLogo() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.secondaryWhite.withOpacity(0.9),
         shape: BoxShape.circle,
@@ -177,7 +180,7 @@ class LoginPage extends StatelessWidget {
           ),
         ],
       ),
-      child: Icon(
+      child: const Icon(
         Icons.person,
         size: 80,
         color: AppColors.primaryDeepPurple,
@@ -188,34 +191,34 @@ class LoginPage extends StatelessWidget {
   Widget _buildLoginCard() {
     return Container(
       decoration: AppDecorations.cardDecoration,
-      padding: EdgeInsets.all(24),
+      padding: const EdgeInsets.all(24),
       child: Column(
         children: [
-          Text('Welcome Back', style: AppTextStyles.heading1),
-          SizedBox(height: 10),
-          Text('Sign in to continue', style: AppTextStyles.body1),
-          SizedBox(height: 30),
+          const Text('Welcome Back', style: AppTextStyles.heading1),
+          const SizedBox(height: 10),
+          const Text('Sign in to continue', style: AppTextStyles.body1),
+          const SizedBox(height: 30),
           _buildTextField(
             controller: emailController,
             hint: 'Email',
             icon: Icons.email_outlined,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _buildTextField(
             controller: passwordController,
             hint: 'Password',
             icon: Icons.lock_outline,
             isPassword: true,
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _buildForgotPassword(),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           _buildLoginButton(),
           // SizedBox(height: 20),
           // _buildDivider(),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           //_buildGoogleSignIn(),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           _buildSignUpLink(),
         ],
       ),
@@ -236,13 +239,14 @@ class LoginPage extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: isPassword,
-        style: TextStyle(color: AppColors.textDarkBlue),
+        style: const TextStyle(color: AppColors.textDarkBlue),
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(color: AppColors.textGrey),
+          hintStyle: const TextStyle(color: AppColors.textGrey),
           prefixIcon: Icon(icon, color: AppColors.primaryDeepPurple),
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         ),
       ),
     );
@@ -259,23 +263,29 @@ class LoginPage extends StatelessWidget {
                 : () async {
                     try {
                       // Start loading
-                      authService.isLoading.value = true;
+                      isLoading.value = true;
+
+                      // Small delay to allow SpinKit to render
+                      await Future.delayed(const Duration(milliseconds: 200));
 
                       // Call the login method from AuthService
                       await authService.signInWithEmail(
-                        emailController.text,
-                        passwordController.text,
+                        emailController.text.trim(),
+                        passwordController.text.trim(),
                       );
 
                       // Navigate to the home page or another screen
                       Get.offNamed('/home'); // Replace with actual home route
                     } catch (e) {
                       // Show error message
-                      Get.snackbar('Login Error', e.toString(),
-                          snackPosition: SnackPosition.BOTTOM);
+                      Get.snackbar(
+                        'Login Error',
+                        e.toString(),
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
                     } finally {
                       // Stop loading
-                      authService.isLoading.value = false;
+                      isLoading.value = false;
                     }
                   },
             style: ElevatedButton.styleFrom(
@@ -286,8 +296,13 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             child: isLoading.value
-                ? CircularProgressIndicator(color: AppColors.secondaryWhite)
-                : Text('Login', style: AppTextStyles.buttonText),
+                ? const SpinKitSpinningLines(
+                    color: AppColors
+                        .primaryDeepPurple, // Primary color for the spinner
+                    size: 50.0, // Size of the spinner
+                    lineWidth: 3.0, // Thickness of the lines
+                  )
+                : const Text('Login', style: AppTextStyles.buttonText),
           ),
         ));
   }
@@ -297,7 +312,7 @@ class LoginPage extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: TextButton(
         onPressed: () => Get.toNamed('/forgot_password'),
-        child: Text(
+        child: const Text(
           'Forgot Password?',
           style: TextStyle(color: AppColors.primaryDeepPurple),
         ),
@@ -326,10 +341,10 @@ class LoginPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Don't have an account?", style: AppTextStyles.body1),
+        const Text("Don't have an account?", style: AppTextStyles.body1),
         TextButton(
-          onPressed: () => Get.toNamed('/signup'),
-          child: Text(
+          onPressed: () => Get.offNamed('/signup'),
+          child: const Text(
             'Sign Up',
             style: TextStyle(
               color: AppColors.primaryDeepPurple,
@@ -342,7 +357,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _buildDivider() {
-    return Row(
+    return const Row(
       children: [
         Expanded(child: Divider(color: AppColors.accentLightGrey)),
         Padding(

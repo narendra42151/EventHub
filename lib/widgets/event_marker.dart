@@ -64,7 +64,7 @@ class EventMarker extends StatelessWidget {
   final EventModel event;
   final VoidCallback onTap;
 
-  const EventMarker({required this.event, required this.onTap});
+  const EventMarker({super.key, required this.event, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +80,9 @@ class EventMarker extends StatelessWidget {
             BoxShadow(
               color: _getEventColor(event.eventType).withOpacity(0.4),
               blurRadius: 8,
-              offset: Offset(0, 4),
+              offset: const Offset(0, 4),
             ),
-            BoxShadow(
+            const BoxShadow(
               color: AppColors.secondaryWhite,
               blurRadius: 4,
               spreadRadius: 1,
@@ -107,7 +107,7 @@ class EventMarker extends StatelessWidget {
       case 'Promotion':
         return AppColors.primarySoftBlue;
       case 'Discount':
-        return Color(0xFF4CAF50); // Custom green that matches theme
+        return const Color(0xFF4CAF50); // Custom green that matches theme
       default:
         return AppColors.accentOrange;
     }

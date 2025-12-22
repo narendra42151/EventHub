@@ -101,6 +101,7 @@ class AuthController extends GetxController {
         password: password.trim(),
       );
 
+      // Save user data to Firestore
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userCredential.user!.uid)
@@ -109,6 +110,26 @@ class AuthController extends GetxController {
         'email': email.trim(),
         'createdAt': FieldValue.serverTimestamp(),
       });
+
+      // Send email verification
+      try {
+        final user = userCredential.user;
+        if (user != null && !user.emailVerified) {
+          await user.sendEmailVerification();
+          Get.snackbar(
+            'Success',
+            'Verification email sent. Check your inbox and spam folder.',
+            backgroundColor: Colors.green[100],
+          );
+        }
+      } catch (e) {
+        // Don't block registration if verification email fails; log/show message
+        Get.snackbar(
+          'Notice',
+          'Failed to send verification email automatically. You can request it from your profile.',
+          backgroundColor: Colors.orange[100],
+        );
+      }
     } on FirebaseAuthException catch (e) {
       Get.snackbar(
         'Error',

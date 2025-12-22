@@ -1,17 +1,17 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:eventhub/model/eventModel.dart';
 import 'package:eventhub/utils/Theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class EventDetailsSheet extends StatelessWidget {
   final EventModel event;
   final dateFormat = DateFormat('MMM dd, yyyy');
 
-  EventDetailsSheet({required this.event});
+  EventDetailsSheet({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +22,12 @@ class EventDetailsSheet extends StatelessWidget {
       builder: (_, controller) => Container(
         decoration: BoxDecoration(
           color: AppColors.secondaryWhite,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
           boxShadow: [
             BoxShadow(
               color: AppColors.primaryDeepPurple.withOpacity(0.1),
               blurRadius: 20,
-              offset: Offset(0, -5),
+              offset: const Offset(0, -5),
             ),
           ],
         ),
@@ -37,18 +37,18 @@ class EventDetailsSheet extends StatelessWidget {
             Expanded(
               child: ListView(
                 controller: controller,
-                padding: EdgeInsets.all(24),
+                padding: const EdgeInsets.all(24),
                 children: [
                   _buildHeader(),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   _buildDateAndLocation(),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   _buildDescription(),
                   if (event.imageUrls.isNotEmpty) ...[
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     _buildImageGallery(),
                   ],
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                   _buildActionButtons(context),
                 ],
               ),
@@ -61,7 +61,7 @@ class EventDetailsSheet extends StatelessWidget {
 
   Widget _buildHandle() {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 12),
+      margin: const EdgeInsets.symmetric(vertical: 12),
       width: 40,
       height: 4,
       decoration: BoxDecoration(
@@ -86,7 +86,7 @@ class EventDetailsSheet extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
                 color: _getEventTypeColor(event.eventType).withOpacity(0.1),
                 borderRadius: BorderRadius.circular(20),
@@ -99,7 +99,7 @@ class EventDetailsSheet extends StatelessWidget {
                     size: 16,
                     color: _getEventTypeColor(event.eventType),
                   ),
-                  SizedBox(width: 4),
+                  const SizedBox(width: 4),
                   Text(
                     event.eventType,
                     style: AppTextStyles.body1.copyWith(
@@ -121,9 +121,9 @@ class EventDetailsSheet extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(Icons.calendar_today_outlined,
+            const Icon(Icons.calendar_today_outlined,
                 color: AppColors.primarySoftBlue, size: 20),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             Text(
               '${dateFormat.format(event.startDate)} - ${dateFormat.format(event.endDate)}',
               style: AppTextStyles.body1,
@@ -131,12 +131,12 @@ class EventDetailsSheet extends StatelessWidget {
           ],
         ),
         if (event.address.isNotEmpty) ...[
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Row(
             children: [
-              Icon(Icons.location_on_outlined,
+              const Icon(Icons.location_on_outlined,
                   color: AppColors.primarySoftBlue, size: 20),
-              SizedBox(width: 12),
+              const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   event.address,
@@ -164,14 +164,14 @@ class EventDetailsSheet extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: event.imageUrls.length,
         itemBuilder: (context, index) => Container(
-          margin: EdgeInsets.only(right: 12),
+          margin: const EdgeInsets.only(right: 12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
                 color: AppColors.primaryDeepPurple.withOpacity(0.1),
                 blurRadius: 8,
-                offset: Offset(0, 2),
+                offset: const Offset(0, 2),
               ),
             ],
           ),
@@ -190,7 +190,7 @@ class EventDetailsSheet extends StatelessWidget {
                   color: AppColors.secondaryLightBlue,
                   child: Center(
                     child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
+                      valueColor: const AlwaysStoppedAnimation<Color>(
                           AppColors.primarySoftBlue),
                       value: loadingProgress.expectedTotalBytes != null
                           ? loadingProgress.cumulativeBytesLoaded /
@@ -213,29 +213,29 @@ class EventDetailsSheet extends StatelessWidget {
       children: [
         Expanded(
           child: ElevatedButton.icon(
-            onPressed: () => _openDirections(event),
-            icon: Icon(Icons.directions_outlined),
-            label: Text('Directions'),
+            onPressed: () => _openDirections(context, event),
+            icon: const Icon(Icons.directions_outlined),
+            label: const Text('Directions'),
             style: ElevatedButton.styleFrom(
               foregroundColor: AppColors.secondaryWhite,
               backgroundColor: AppColors.primarySoftBlue,
-              padding: EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
           ),
         ),
-        SizedBox(width: 16),
+        const SizedBox(width: 16),
         Expanded(
           child: ElevatedButton.icon(
             onPressed: () => _shareEvent(event),
-            icon: Icon(Icons.share_outlined),
-            label: Text('Share'),
+            icon: const Icon(Icons.share_outlined),
+            label: const Text('Share'),
             style: ElevatedButton.styleFrom(
               foregroundColor: AppColors.primarySoftBlue,
               backgroundColor: AppColors.secondaryLightBlue,
-              padding: EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -252,7 +252,7 @@ class EventDetailsSheet extends StatelessWidget {
       case 'Promotion':
         return AppColors.primarySoftBlue;
       case 'Discount':
-        return Color(0xFF4CAF50);
+        return const Color(0xFF4CAF50);
       default:
         return AppColors.accentOrange;
     }
@@ -269,38 +269,88 @@ class EventDetailsSheet extends StatelessWidget {
     }
   }
 
-  Future<void> _openDirections(EventModel event) async {
+  // Future<void> _openDirections(EventModel event) async {
+  //   try {
+  //     final lat = event.latitude.toStringAsFixed(6);
+  //     final lng = event.longitude.toStringAsFixed(6);
+
+  //     // Try platform-specific URL first
+  //     final Uri androidUrl = Uri.parse(
+  //       'geo:0,0?q=$lat,$lng',
+  //     );
+
+  //     final Uri iosUrl = Uri.parse(
+  //       'maps://maps.apple.com/?daddr=$lat,$lng',
+  //     );
+
+  //     final Uri webUrl = Uri.parse(
+  //       'https://www.google.com/maps/dir/?api=1&destination=$lat,$lng',
+  //     );
+
+  //     if (Platform.isAndroid && await canLaunchUrl(androidUrl)) {
+  //       await launchUrl(androidUrl);
+  //     } else if (Platform.isIOS && await canLaunchUrl(iosUrl)) {
+  //       await launchUrl(iosUrl);
+  //     } else if (await canLaunchUrl(webUrl)) {
+  //       await launchUrl(
+  //         webUrl,
+  //         mode: LaunchMode.externalApplication,
+  //       );
+  //     } else {
+  //       throw 'Could not launch maps';
+  //     }
+  //   } catch (e) {
+  //     print('Error launching maps: $e');
+  //   }
+  // }
+
+  Future<void> _openDirections(BuildContext context, EventModel event) async {
     try {
-      final lat = event.latitude.toStringAsFixed(6);
-      final lng = event.longitude.toStringAsFixed(6);
+      final coords = Coords(event.latitude, event.longitude);
+      final title = event.title ?? "Event Location";
+      final description = event.description ?? "";
 
-      // Try platform-specific URL first
-      final Uri androidUrl = Uri.parse(
-        'geo:0,0?q=$lat,$lng',
-      );
+      // Check for available maps
+      final availableMaps = await MapLauncher.installedMaps;
 
-      final Uri iosUrl = Uri.parse(
-        'maps://maps.apple.com/?daddr=$lat,$lng',
-      );
-
-      final Uri webUrl = Uri.parse(
-        'https://www.google.com/maps/dir/?api=1&destination=$lat,$lng',
-      );
-
-      if (Platform.isAndroid && await canLaunchUrl(androidUrl)) {
-        await launchUrl(androidUrl);
-      } else if (Platform.isIOS && await canLaunchUrl(iosUrl)) {
-        await launchUrl(iosUrl);
-      } else if (await canLaunchUrl(webUrl)) {
-        await launchUrl(
-          webUrl,
-          mode: LaunchMode.externalApplication,
+      if (availableMaps.isNotEmpty) {
+        // Show a bottom sheet for the user to select their preferred map
+        await showModalBottomSheet(
+          context: context,
+          builder: (BuildContext context) {
+            return SafeArea(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (var map in availableMaps)
+                    ListTile(
+                      onTap: () {
+                        map.showMarker(
+                          coords: coords,
+                          title: title,
+                          description: description,
+                        );
+                        Navigator.pop(context);
+                      },
+                      title: Text(map.mapName),
+                      leading: map.icon is Uint8List
+                          ? Image.memory(map.icon as Uint8List,
+                              width: 30, height: 30)
+                          : Icon(Icons.map),
+                    ),
+                ],
+              ),
+            );
+          },
         );
       } else {
-        throw 'Could not launch maps';
+        throw 'No map applications available';
       }
     } catch (e) {
       print('Error launching maps: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error launching maps: $e")),
+      );
     }
   }
 

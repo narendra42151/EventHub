@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.example.eventhub"
-    compileSdk = 34
+    compileSdk = 35
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

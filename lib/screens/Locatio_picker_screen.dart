@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 
 class LocationPickerScreen extends StatefulWidget {
+  const LocationPickerScreen({super.key});
+
   @override
   _LocationPickerScreenState createState() => _LocationPickerScreenState();
 }
@@ -80,9 +82,7 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
         _isLoading = false;
       });
 
-      if (mapController != null) {
-        mapController.move(selectedLocation!, 15);
-      }
+      mapController.move(selectedLocation!, 15);
     } catch (e) {
       setState(() {
         _isLoading = false;
@@ -110,7 +110,7 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pick Location'),
+        title: const Text('Pick Location'),
         actions: [
           TextButton(
             onPressed: selectedLocation != null
@@ -123,7 +123,7 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
                     Get.back();
                   }
                 : null,
-            child: Text('Save'),
+            child: const Text('Save'),
           ),
         ],
       ),
@@ -132,7 +132,7 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
           FlutterMap(
             mapController: mapController,
             options: MapOptions(
-              initialCenter: selectedLocation ?? LatLng(0, 0),
+              initialCenter: selectedLocation ?? const LatLng(0, 0),
               initialZoom: 15,
               onTap: (tapPosition, point) {
                 setState(() {
@@ -145,7 +145,8 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
             children: [
               TileLayer(
                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                userAgentPackageName: 'com.example.app',
+                userAgentPackageName: 'com.eventhub.app',
+                tileSize: 256,
               ),
               if (selectedLocation != null)
                 MarkerLayer(
@@ -154,7 +155,7 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
                       point: selectedLocation!,
                       width: 40,
                       height: 40,
-                      child: Icon(
+                      child: const Icon(
                         Icons.location_pin,
                         color: Colors.red,
                         size: 40,

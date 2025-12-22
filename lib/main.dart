@@ -30,21 +30,28 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e, st) {
+    // Log initialization errors to help diagnose platform channel failures
+    // (e.g., native plugin registration issues, missing configuration).
+    debugPrint('Firebase.initializeApp error: $e');
+    debugPrint('$st');
+  }
   Get.put(AuthController());
   Get.put(CloudinaryService());
   Get.put(FirebaseService());
-
   Get.put(EventsController());
   Get.put(EventController());
   Get.put(ImageController());
-  Get.put(FirebaseService());
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -52,9 +59,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),
+      home: const SplashScreen(),
       getPages: [
-        GetPage(name: '/', page: () => SplashScreen()),
+        GetPage(name: '/', page: () => const SplashScreen()),
         GetPage(name: '/login', page: () => LoginPage()),
         GetPage(name: '/signup', page: () => SignupPage()),
         GetPage(name: '/forgot_password', page: () => ForgotPasswordPage()),

@@ -443,12 +443,14 @@ import 'package:get/get.dart';
 
 class AppDrawer extends StatelessWidget {
   final AuthService _authService = AuthService();
+
+  AppDrawer({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryDeepPurple,
       body: Container(
-        decoration: BoxDecoration(gradient: AppColors.primaryGradient),
+        decoration: const BoxDecoration(gradient: AppColors.primaryGradient),
         child: SafeArea(
           child: Column(
             children: [
