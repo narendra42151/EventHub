@@ -547,37 +547,42 @@ class AppDrawer extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 16),
           children: [
-            _buildMenuItem(
-              icon: Icons.home_outlined,
-              title: 'Home',
-              onTap: () => Get.toNamed('/home'),
-            ),
+            // _buildMenuItem(
+            //   icon: Icons.home_outlined,
+            //   title: 'Home',
+            //   onTap: () => Get.toNamed('/home?tab=0'),
+            // ),
             _buildMenuItem(
               icon: Icons.map_outlined,
-              title: 'Map',
-              onTap: () => Get.toNamed('/home'),
+              title: 'Map ',
+              onTap: () => Get.toNamed('/home?tab=0'),
             ),
             _buildMenuItem(
               icon: Icons.event_outlined,
               title: 'Events',
-              onTap: () => Get.toNamed('/event'),
+              onTap: () => Get.toNamed('/home?tab=1'),
             ),
             _buildMenuItem(
-                icon: Icons.person_outline, title: 'Profile', onTap: () => {}),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              child: Divider(
-                color: AppColors.secondaryWhite.withOpacity(0.2),
-                height: 1,
-              ),
+              icon: Icons.add_circle_outline,
+              title: 'Create Event',
+              onTap: () => Get.toNamed('/home?tab=2'),
             ),
-            _buildMenuItem(
-              icon: Icons.settings_outlined,
-              title: 'Settings',
-              onTap: () => {
-                // Get.toNamed('/settings')
-              },
-            ),
+            // _buildMenuItem(
+            //     icon: Icons.person_outline, title: 'Profile', onTap: () => {}),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            //   child: Divider(
+            //     color: AppColors.secondaryWhite.withOpacity(0.2),
+            //     height: 1,
+            //   ),
+            // ),
+            // _buildMenuItem(
+            //   icon: Icons.settings_outlined,
+            //   title: 'Settings',
+            //   onTap: () => {
+            //     // Get.toNamed('/settings')
+            //   },
+            // ),
             _buildMenuItem(
               icon: Icons.logout,
               title: 'Logout',

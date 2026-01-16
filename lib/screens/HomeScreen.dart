@@ -138,6 +138,7 @@ import 'package:eventhub/screens/mapScreen.dart';
 import 'package:eventhub/utils/Theme.dart';
 import 'package:eventhub/utils/drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -155,6 +156,25 @@ class _HomeScreenState extends State<HomeScreen> {
     CreateEventScreen(),
     AppDrawer(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    // Allow opening HomeScreen with a specific tab via query parameter:
+    // e.g. Get.toNamed('/home?tab=1') to open Events tab.
+    try {
+      final tabParam = Get.parameters['tab'];
+      if (tabParam != null) {
+        final parsed = int.tryParse(tabParam);
+        if (parsed != null && parsed >= 0 && parsed < _screens.length) {
+          _currentIndex = parsed;
+        }
+      } else if (Get.arguments != null && Get.arguments is int) {
+        final arg = Get.arguments as int;
+        if (arg >= 0 && arg < _screens.length) _currentIndex = arg;
+      }
+    } catch (_) {}
+  }
 
   @override
   Widget build(BuildContext context) {
